@@ -38,7 +38,14 @@ class MapManager:
             Portal(from_world='spawn_house', origin_point='enter_level1', target_world='map_levelone', teleport_point='enterspawn_level1')
         ])
         self.register_map('map_levelone', portals=[
-            Portal(from_world='map_levelone', origin_point='enter_spawnhouse_fromlvl1', target_world='spawn_house', teleport_point='exitspawn_level1')
+            Portal(from_world='map_levelone', origin_point='enter_spawnhouse_fromlvl1', target_world='spawn_house', teleport_point='exitspawn_level1'),
+            Portal(from_world='map_levelone', origin_point='enterhouse1_lvl1', target_world='house1_lvl1', teleport_point='enterspawn_house1_lvl1'),
+            Portal(from_world='map_levelone', origin_point='enter2_house1_lvl1', target_world='house1_lvl1', teleport_point='enterspawn2_house1_lvl1')
+
+        ])
+        self.register_map('house1_lvl1', portals=[
+            Portal(from_world='house1_lvl1', origin_point='exithouse1_lvl1', target_world='map_levelone', teleport_point='spawnexit_house1_lvl1'),
+            Portal(from_world='house1_lvl1', origin_point='exit2_house1_lvl1', target_world='map_levelone', teleport_point='spawnexit2_house1_lvl1'),
         ])
 
         self.teleport_player("player")
