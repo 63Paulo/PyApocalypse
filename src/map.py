@@ -87,7 +87,6 @@ class MapManager:
         map_layer = pyscroll.orthographic.BufferedRenderer(map_data, self.screen.get_size())
         map_layer.zoom = 2
 
-
         walls = []
 
         for obj in tmx_data.objects:
