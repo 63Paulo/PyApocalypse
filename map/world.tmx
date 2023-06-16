@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.1" orientation="orthogonal" renderorder="right-down" width="25" height="25" tilewidth="32" tileheight="32" infinite="0" backgroundcolor="#000000" nextlayerid="14" nextobjectid="25">
+<map version="1.10" tiledversion="1.10.1" orientation="orthogonal" renderorder="right-down" width="25" height="25" tilewidth="32" tileheight="32" infinite="0" backgroundcolor="#000000" nextlayerid="14" nextobjectid="27">
  <tileset firstgid="1" source="apocalypse.tsx"/>
  <layer id="4" name="background" width="25" height="25">
   <data encoding="csv">
@@ -205,7 +205,11 @@
    <polygon points="0,0 0.5,30.875 1.75,31.875 2.875,33.375 4.875,37.75 6.125,40.25 8.25,43.125 10.125,45.75 11.625,48.5 12.875,50.25 16.125,52.5 19.125,53.125 25,54.125 26.125,55 26.875,56.375 29.5,57.5 34.75,57.875 36.875,57.75 38.125,55.25 38.25,53.625 44.25,53 48.75,53.5 49.25,53.5 50.75,51.75 52.25,50 53.125,49 54.5,45.625 55.125,43.125 56.375,40.5 58,38.5 58.75,36.75 61.125,34.25 62.25,32.75 63,30.5 63.5,26.5 63.5,24.875 63.875,19.75 63.875,17.5 63.75,14 63.75,8.625 63.25,5.25 63.25,3 62.625,0.625 61.375,-1.5 60.375,-3.25 57,-5.625 57,-8.25 55.75,-10.25 54.75,-12.875 54.125,-15.75 52.625,-18.125 49.625,-20.25 46.25,-22.125 41.25,-22.125 39.625,-22.875 38.25,-23.875 37.25,-25.625 35.125,-29.625 34.625,-30.125 27.875,-28.5 26.5,-26.875 26,-26.625 25.25,-24.125 25,-23.125 22.875,-22.125 19.75,-22.125 17.25,-22.125 12.875,-21 12.5,-19.875 11.625,-18.375 10.75,-16.75 9.375,-14.125 8.75,-12.375 7,-9.625 5.125,-7.25 4.375,-5.5 3.25,-3 2.5,-1.125 1.875,-0.5 1.375,0"/>
   </object>
   <object id="23" type="collision" x="785" y="-3" width="12" height="798"/>
-  <object id="24" name="Player" x="748" y="733">
+  <object id="24" name="player" x="748" y="733">
+   <point/>
+  </object>
+  <object id="25" name="enter_spawnhouse" x="387.333" y="184" width="58" height="135.333"/>
+  <object id="26" name="exitspawn_spawnhouse" x="529.333" y="338.667">
    <point/>
   </object>
  </objectgroup>

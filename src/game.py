@@ -6,16 +6,16 @@ from map import MapManager
 
 
 from player import Player
-from dialog import DialogBox
+# from dialog import DialogBox
 
 class Game:
     def __init__(self):
         self.screen = pygame.display.set_mode((800, 600))
-        pygame.display.set_caption('Pygamon - Aventure')
+        pygame.display.set_caption('PyApocalypse')
 
         self.player = Player()
         self.map_manager = MapManager(self.screen, self.player)
-        self.dialog_box = DialogBox()
+        # self.dialog_box = DialogBox()
 
 
     def handle_input(self):
@@ -47,7 +47,7 @@ class Game:
             self.handle_input()
             self.update()
             self.map_manager.draw()
-            self.dialog_box.render(self.screen)
+            # self.dialog_box.render(self.screen)
             pygame.display.flip()
 
             for event  in pygame.event.get():

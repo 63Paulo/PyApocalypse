@@ -31,23 +31,14 @@ class MapManager:
         self.current_map = 'world'
 
         self.register_map('world', portals=[
-            Portal(from_world='world', origin_point='enter_house', target_world='housee', teleport_point='spawn_house'),
-            Portal(from_world='world', origin_point='enter_house2', target_world='house2', teleport_point='spawn_house'),
-             Portal(from_world='world', origin_point='enter_dungeon', target_world='dungeon', teleport_point='spawn_dungeon')
-        ], npcs=[
-            NPC("paul", nb_points=4, dialog=["Bonne aventure", "Je m'appelle Paul", "A bientôt"]),
-            NPC("robin", nb_points=2, dialog=["J'espère que tu vas bien"])
+            Portal(from_world='world', origin_point='enter_spawnhouse', target_world='spawn_house', teleport_point='enterspawn_spawnhouse')
         ])
-        self.register_map('housee', portals=[
-            Portal(from_world='housee', origin_point='exit_house', target_world='world', teleport_point='enter_house_exit')
+        self.register_map('spawn_house', portals=[
+            Portal(from_world='spawn_house', origin_point='exit_spawnhouse', target_world='world', teleport_point='exitspawn_spawnhouse'),
+            Portal(from_world='spawn_house', origin_point='enter_level1', target_world='map_levelone', teleport_point='enterspawn_level1')
         ])
-        self.register_map('house2', portals=[
-            Portal(from_world='house2', origin_point='exit_house', target_world='world', teleport_point='exit_house2')
-        ])
-        self.register_map('dungeon', portals=[
-            Portal(from_world='dungeon', origin_point='exit_dungeon', target_world='world', teleport_point='dungeon_exit_spawn')
-        ], npcs=[
-            NPC("boss", nb_points=2, dialog=["MOUAHAHAHAHA", "je garde ces lieux"])
+        self.register_map('map_levelone', portals=[
+            Portal(from_world='map_levelone', origin_point='enter_spawnhouse_fromlvl1', target_world='spawn_house', teleport_point='exitspawn_level1')
         ])
 
         self.teleport_player("player")
