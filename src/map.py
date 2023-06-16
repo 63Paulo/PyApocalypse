@@ -93,7 +93,7 @@ class MapManager:
             if obj.type == "collision":
                 walls.append(pygame.Rect(obj.x, obj.y, obj.width, obj.height))
 
-        group = pyscroll.PyscrollGroup(map_layer=map_layer, default_layer=5)
+        group = pyscroll.PyscrollGroup(map_layer=map_layer, default_layer=3)
         group.add(self.player)
 
         #récupérer les npcs pour les ajouter au groupe
@@ -106,6 +106,7 @@ class MapManager:
 
     def get_map(self):
         return self.maps[self.current_map]
+
     
     def get_group(self):
         return self.get_map().group
