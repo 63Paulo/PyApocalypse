@@ -8,6 +8,9 @@ from map import MapManager
 from player import Player
 # from dialog import DialogBox
 
+
+
+
 class Game:
     def __init__(self):
         self.screen = pygame.display.set_mode((800, 600))
@@ -33,7 +36,6 @@ class Game:
 
     def update(self):
         self.map_manager.update()
-
 
     def run(self):
 
