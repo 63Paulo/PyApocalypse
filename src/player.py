@@ -43,19 +43,18 @@ class Entity(AnimateSprite):
         self.rect.topleft = self.position
         self.feet.midbottom = self.rect.midbottom
     
-    def update_health_bar(self, surface):
-        bar_color = (0, 255, 255)
-        back_bar_color = (255, 0, 0)
-        bar_position = [self.rect.x, self.rect.y, self.health, 5]
-        back_bar_position = [self.rect.x, self.rect.y, self.max_health, 5]
-
-        pygame.draw.rect(surface, back_bar_color, back_bar_position)
-        pygame.draw.rect(surface, bar_color, bar_position)
-
-    
 class Player(Entity):
     def __init__(self):
         super().__init__("player", 0, 0)
+
+    def update_health_bar(self, surface):
+        bar_color = (0, 255, 255)
+        back_bar_color = (255, 0, 0)
+        bar_position = [self.feet.x, self.feet.y , self.health, 5]
+        back_bar_position = [self.feet.x, self.feet.y , self.max_health, 5]
+
+        pygame.draw.rect(surface, back_bar_color, back_bar_position)
+        pygame.draw.rect(surface, bar_color, bar_position)
 
 
 class NPC(Entity):
