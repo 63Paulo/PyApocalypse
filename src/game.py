@@ -9,6 +9,7 @@ from player import Player
 from dialog import DialogBox
 
 
+
 class Game:
     def __init__(self):
         self.screen = pygame.display.set_mode((800, 600))
@@ -48,6 +49,7 @@ class Game:
             self.update()
             self.map_manager.draw()
             self.dialog_box.render(self.screen)
+            self.player.update_health_bar(self.screen)
             pygame.display.flip()
 
             for event  in pygame.event.get():

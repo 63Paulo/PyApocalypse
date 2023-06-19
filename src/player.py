@@ -13,10 +13,10 @@ class Entity(AnimateSprite):
         self.position = [x, y]
         self.feet = pygame.Rect(0, 0, self.rect.width * 0.5, 12)
         self.old_position = self.position.copy()
+        self.health = 50
+        self.max_health = 50
 
-        
     def save_location(self): self.old_position = self.position.copy()
-
 
     def move_right(self): 
         self.change_animation("right")
@@ -34,23 +34,29 @@ class Entity(AnimateSprite):
         self.change_animation("down")
         self.position[1] += self.speed
 
-    def update(self, surface):
+    def update(self):
         self.rect.topleft = self.position
         self.feet.midbottom = self.rect.midbottom
-        self.update_health_bar(surface)
 
     def move_back(self):
         self.position = self.old_position
         self.rect.topleft = self.position
         self.feet.midbottom = self.rect.midbottom
+    
+    def update_health_bar(self, surface):
+        bar_color = (0, 255, 255)
+        back_bar_color = (255, 0, 0)
+        bar_position = [self.rect.x, self.rect.y, self.health, 5]
+        back_bar_position = [self.rect.x, self.rect.y, self.max_health, 5]
+
+        pygame.draw.rect(surface, back_bar_color, back_bar_position)
+        pygame.draw.rect(surface, bar_color, bar_position)
 
     
 class Player(Entity):
     def __init__(self):
         super().__init__("player", 0, 0)
 
-    def update(self, surface):
-        super().update(surface)
 
 class NPC(Entity):
     def __init__(self, name, nb_points, dialog):

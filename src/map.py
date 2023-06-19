@@ -38,8 +38,7 @@ class MapManager:
             Portal(from_world='spawn_house', origin_point='enter_level1', target_world='map_levelone', teleport_point='enterspawn_level1')
         ],
         npcs=[
-            NPC('spawnnpc', nb_points=4, dialog=["Ne bougez plus ! Vous êtes quoi, un zombie ?", "Oh, un survivant !", "Ca alors, je ne m'attendais pas a en voir de si tôt",
-                "Tenez, il est nécessaire d'avoir cela sur soit si on veut survivre..."])
+            NPC('spawnnpc', nb_points=4, dialog=["Ne bougez plus ! Vous êtes quoi, un zombie ?", "Oh, un survivant !", "Ca alors, je ne m'attendais pas a en voir de si tôt"])
         ])
         self.register_map('map_levelone', portals=[
             Portal(from_world='map_levelone', origin_point='enter_spawnhouse_fromlvl1', target_world='spawn_house', teleport_point='exitspawn_level1'),
