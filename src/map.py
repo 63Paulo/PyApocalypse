@@ -36,14 +36,17 @@ class MapManager:
         self.register_map('spawn_house', portals=[
             Portal(from_world='spawn_house', origin_point='exit_spawnhouse', target_world='world', teleport_point='exitspawn_spawnhouse'),
             Portal(from_world='spawn_house', origin_point='enter_level1', target_world='map_levelone', teleport_point='enterspawn_level1')
+        ],
+        npcs=[
+            NPC('spawnnpc', nb_points=4, dialog=["Ne bougez plus ! Vous êtes quoi, un zombie ?", "Oh, un survivant !", "Ca alors, je ne m'attendais pas a en voir de si tôt",
+                "Tenez, il est nécessaire d'avoir cela sur soit si on veut survivre..."])
         ])
         self.register_map('map_levelone', portals=[
             Portal(from_world='map_levelone', origin_point='enter_spawnhouse_fromlvl1', target_world='spawn_house', teleport_point='exitspawn_level1'),
             Portal(from_world='map_levelone', origin_point='enterhouse1_lvl1', target_world='house1_lvl1', teleport_point='enterspawn_house1_lvl1'),
             Portal(from_world='map_levelone', origin_point='enter2_house1_lvl1', target_world='house1_lvl1', teleport_point='enterspawn2_house1_lvl1'),
-             Portal(from_world='map_levelone', origin_point='enterhouse2_lvl1', target_world='house2_lvl1', teleport_point='enterspawn_house2_lvl1'),
-            
-
+            Portal(from_world='map_levelone', origin_point='enterhouse2_lvl1', target_world='house2_lvl1', teleport_point='enterspawn_house2_lvl1'),
+            Portal(from_world='map_levelone', origin_point='enterhouse3_lvl1', target_world='house3_lvl1', teleport_point='enterspawn_house3_lvl1'),
         ])
         self.register_map('house1_lvl1', portals=[
             Portal(from_world='house1_lvl1', origin_point='exithouse1_lvl1', target_world='map_levelone', teleport_point='spawnexit_house1_lvl1'),
@@ -51,6 +54,9 @@ class MapManager:
         ])
         self.register_map('house2_lvl1', portals=[
             Portal(from_world='house2_lvl1', origin_point='exit_house2_lvl1', target_world='map_levelone', teleport_point='spawnexit_house2_lvl1'),
+        ])
+        self.register_map('house3_lvl1', portals=[
+            Portal(from_world='house3_lvl1', origin_point='exithouse3_lvl1', target_world='map_levelone', teleport_point='exitspawn_house3_lvl1'),
         ])
 
         self.teleport_player("player")

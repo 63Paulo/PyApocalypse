@@ -6,9 +6,7 @@ from map import MapManager
 
 
 from player import Player
-# from dialog import DialogBox
-
-
+from dialog import DialogBox
 
 
 class Game:
@@ -18,7 +16,7 @@ class Game:
 
         self.player = Player()
         self.map_manager = MapManager(self.screen, self.player)
-        # self.dialog_box = DialogBox()
+        self.dialog_box = DialogBox()
 
 
     def handle_input(self):
@@ -49,7 +47,7 @@ class Game:
             self.handle_input()
             self.update()
             self.map_manager.draw()
-            # self.dialog_box.render(self.screen)
+            self.dialog_box.render(self.screen)
             pygame.display.flip()
 
             for event  in pygame.event.get():
