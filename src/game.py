@@ -43,6 +43,8 @@ class Game:
 
         while running:
             
+            self.player.all_projectiles.draw(self.screen)
+            
             self.player.save_location()
             self.handle_input()
             self.update()
@@ -57,6 +59,7 @@ class Game:
                 elif event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_SPACE:
                         self.map_manager.check_npc_collision(self.dialog_box)
+                        self.player.launch_projectile()
 
             clock.tick(60)
         

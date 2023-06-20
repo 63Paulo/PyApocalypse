@@ -1,5 +1,6 @@
 
 import pygame
+from projectile import Projectile
 
 from animation import AnimateSprite
 
@@ -15,6 +16,11 @@ class Entity(AnimateSprite):
         self.old_position = self.position.copy()
         self.health = 100
         self.max_health = 100
+        self.all_projectiles = pygame.sprite.Group()
+
+    def launch_projectile(self):
+        projectile = Projectile(self)
+        self.all_projectiles.add(projectile)
 
     def update_health_bar(self, surface):
         bar_color = (0, 255, 255)
@@ -24,6 +30,11 @@ class Entity(AnimateSprite):
 
         pygame.draw.rect(surface, back_bar_color, back_bar_position)
         pygame.draw.rect(surface, bar_color, bar_position)
+
+    def damage(self, amount):
+        #Infliger les dégats
+
+        self.health -= amount
 
 
     def save_location(self): self.old_position = self.position.copy()
