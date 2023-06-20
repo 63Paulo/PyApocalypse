@@ -37,7 +37,6 @@ class Game:
         self.map_manager.update()
 
     def run(self):
-        self.inventory_active = False
         clock = pygame.time.Clock()
 
         running = True

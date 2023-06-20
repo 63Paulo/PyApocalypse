@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.1" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="16" tileheight="16" infinite="0" nextlayerid="13" nextobjectid="29">
+<map version="1.10" tiledversion="1.10.1" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="16" tileheight="16" infinite="0" nextlayerid="13" nextobjectid="30">
  <tileset firstgid="1" source="apocalypseTest.tsx"/>
  <layer id="1" name="background" width="50" height="50">
   <data encoding="csv">
@@ -326,9 +326,6 @@
 </data>
  </layer>
  <objectgroup id="11" name="object">
-  <object id="5" name="player" x="744" y="603">
-   <point/>
-  </object>
   <object id="6" name="enter_spawnhouse" x="337.667" y="75.3333" width="29" height="68.3333"/>
   <object id="7" name="exitspawn_spawnhouse" x="351.5" y="173.5">
    <point/>
@@ -349,5 +346,8 @@
   <object id="25" type="collision" x="-1" y="15" width="7" height="623"/>
   <object id="27" type="collision" x="468" y="8.5" width="331" height="7"/>
   <object id="28" type="collision" x="792" y="17" width="6" height="621"/>
+  <object id="29" name="player" x="740" y="599">
+   <point/>
+  </object>
  </objectgroup>
 </map>
