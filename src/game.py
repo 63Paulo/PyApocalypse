@@ -37,7 +37,7 @@ class Game:
         self.map_manager.update()
 
     def run(self):
-
+        self.inventory_active = False
         clock = pygame.time.Clock()
 
         running = True
@@ -60,5 +60,8 @@ class Game:
                         self.map_manager.check_npc_collision(self.dialog_box)
 
             clock.tick(60)
+        
+
+
 
         pygame.quit()
