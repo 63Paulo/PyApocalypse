@@ -13,8 +13,15 @@ class Entity(AnimateSprite):
         self.position = [x, y]
         self.feet = pygame.Rect(0, 0, self.rect.width * 0.5, 12)
         self.old_position = self.position.copy()
-        self.health = 50
-        self.max_health = 50
+        self.health = 100
+        self.max_health = 100
+
+    def update_health_bar(self, surface):
+        bar_color = (0, 255, 255)
+        bar_position = [self.rect.x, self.rect.y, self.health, 5]
+
+        pygame.draw.rect(surface, bar_color, bar_position)
+
 
     def save_location(self): self.old_position = self.position.copy()
 
@@ -47,14 +54,7 @@ class Player(Entity):
     def __init__(self):
         super().__init__("player", 0, 0)
 
-    def update_health_bar(self, surface):
-        bar_color = (0, 255, 255)
-        back_bar_color = (255, 0, 0)
-        bar_position = [self.feet.x, self.feet.y , self.health, 5]
-        back_bar_position = [self.feet.x, self.feet.y , self.max_health, 5]
-
-        pygame.draw.rect(surface, back_bar_color, back_bar_position)
-        pygame.draw.rect(surface, bar_color, bar_position)
+ 
 
 
 class NPC(Entity):
