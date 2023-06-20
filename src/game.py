@@ -43,6 +43,10 @@ class Game:
 
         while running:
             
+
+            for projectile in self.player.all_projectiles:
+                projectile.move()
+
             self.player.all_projectiles.draw(self.screen)
             
             self.player.save_location()
