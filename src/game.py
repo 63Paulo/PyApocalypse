@@ -38,12 +38,13 @@ class Game:
 
     def run(self):
         clock = pygame.time.Clock()
+    
 
         running = True
+  
 
         while running:
             
-
             for projectile in self.player.all_projectiles:
                 projectile.move()
 

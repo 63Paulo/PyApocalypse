@@ -22,6 +22,7 @@ class Map:
     tmx_data: pytmx.TiledMap
     portals : list[Portal]
     npcs : list[NPC]
+    hostile_npcs: list[NPC]
 
 class MapManager:
     def __init__(self, screen, player):
@@ -101,7 +102,7 @@ class MapManager:
         self.player.save_location()
 
 
-    def register_map(self, name, portals=[], npcs=[]):
+    def register_map(self, name, portals=[], npcs=[], hostile_npcs=[]):
          
         tmx_data = pytmx.util_pygame.load_pygame(f"map/{name}.tmx")
         map_data = pyscroll.data.TiledMapData(tmx_data)
@@ -122,8 +123,11 @@ class MapManager:
         for npc in npcs:
             group.add(npc)
 
+        for hostile_npc in hostile_npcs:
+            group.add(hostile_npc)
+
         #créer objet map
-        self.maps[name] = Map(name, walls, group, tmx_data, portals, npcs)
+        self.maps[name] = Map(name, walls, group, tmx_data, portals, npcs, hostile_npcs)
 
     def get_map(self):
         return self.maps[self.current_map]
@@ -157,3 +161,5 @@ class MapManager:
 
         for npc in self.get_map().npcs:
             npc.move()
+        for hostile_npc in self.get_map().hostile_npcs:
+            hostile_npc.move()

@@ -113,3 +113,17 @@ class NPC(Entity):
             point = tmx_data.get_object_by_name(f"{self.name}_path{num}")
             rect = pygame.Rect(point.x, point.y, point.width, point.height)
             self.points.append(rect)
+
+
+class NPCHostile(NPC):
+    def __init__(self, name, nb_points, dialog, damage_amount):
+        super().__init__(name, nb_points, dialog)
+        self.damage_amount = damage_amount
+
+    def update(self):
+        super().update()
+        self.check_collision_with_player()
+
+    def check_collision_with_player(self):
+        if self.rect.colliderect(self.player.rect):
+            self.player.damage(self.damage_amount)
