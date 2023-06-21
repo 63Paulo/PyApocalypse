@@ -5,8 +5,8 @@ from pygame.locals import *
 from map import MapManager
 
 
-from player import Player
 from dialog import DialogBox
+from player import Player
 
 
 

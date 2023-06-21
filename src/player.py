@@ -120,6 +120,8 @@ class NPCHostile(NPC):
     def __init__(self, name, nb_points, dialog):
         super().__init__(name, nb_points, dialog)
         self.speed = 0.5
+        self.attack_cooldown = 0
+        self.attack_delay = 1000  
 
     def pursue_player(self):
         player_position = self.player.position
@@ -139,8 +141,11 @@ class NPCHostile(NPC):
         super().update()
         self.check_collision_with_player()
         self.pursue_player()
+        
+        if self.attack_cooldown > 0:
+            self.attack_cooldown -= pygame.time.get_ticks()
 
     def check_collision_with_player(self):
-        if self.rect.colliderect(self.player.rect):
-            self.player.damage(0.5)
-    
+        if self.rect.colliderect(self.player.rect) and self.attack_cooldown <= 0:
+            self.player.damage(10)
+            self.attack_cooldown = self.attack_delay

@@ -34,7 +34,7 @@ class MapManager:
         self.register_map('world', portals=[
             Portal(from_world='world', origin_point='enter_spawnhouse', target_world='spawn_house', teleport_point='enterspawn_spawnhouse')
         ], hostile_npcs=[
-            NPCHostile('zombie', nb_points=1, dialog=["aaeezzdzfffzefzazfaf"])
+            NPCHostile('Walk', nb_points=1, dialog=["aaeezzdzfffzefzazfaf"])
         ])
         self.register_map('spawn_house', portals=[
             Portal(from_world='spawn_house', origin_point='exit_spawnhouse', target_world='world', teleport_point='exitspawn_spawnhouse'),

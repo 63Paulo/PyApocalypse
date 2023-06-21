@@ -351,6 +351,6 @@
   </object>
  </objectgroup>
  <objectgroup id="13" name="NPCPaths">
-  <object id="30" name="zombie_path1" x="479.818" y="256" width="16" height="15.8182"/>
+  <object id="30" name="Walk_path1" x="479.818" y="256" width="16" height="15.8182"/>
  </objectgroup>
 </map>
