@@ -35,6 +35,8 @@ class Entity(AnimateSprite):
         #Infliger les dégats
         self.health -= amount
 
+    def is_dead(self):
+        return self.health <= 0
 
     def save_location(self): self.old_position = self.position.copy()
 

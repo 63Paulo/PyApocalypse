@@ -18,7 +18,7 @@ class Game:
         self.player = Player()
         self.map_manager = MapManager(self.screen, self.player)
         self.dialog_box = DialogBox()
-
+        self.game_over = False
 
     def handle_input(self):
 
@@ -36,10 +36,29 @@ class Game:
     def update(self):
         self.map_manager.update()
 
+    def game_over_screen(self):
+        while True:
+            self.screen.fill((0, 0, 0))
+            game_over_text = pygame.font.Font(None, 36).render("Game Over", True, (255, 255, 255))
+            game_over_rect = game_over_text.get_rect(center=(400, 300))
+            self.screen.blit(game_over_text, game_over_rect)
+
+            restart_text = pygame.font.Font(None, 24).render("Press R to restart", True, (255, 255, 255))
+            restart_rect = restart_text.get_rect(center=(400, 350))
+            self.screen.blit(restart_text, restart_rect)
+
+            pygame.display.flip()
+
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    quit()
+                elif event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_r:
+                        return
+
     def run(self):
         clock = pygame.time.Clock()
-    
-
         running = True
   
 
@@ -65,6 +84,8 @@ class Game:
                     if event.key == pygame.K_SPACE:
                         self.map_manager.check_npc_collision(self.dialog_box)
                         self.player.launch_projectile()
+                    if self.player.is_dead():
+                        self.game_over()
 
             clock.tick(60)
         
