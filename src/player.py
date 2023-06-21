@@ -33,7 +33,6 @@ class Entity(AnimateSprite):
 
     def damage(self, amount):
         #Infliger les dégats
-
         self.health -= amount
 
 
@@ -116,9 +115,8 @@ class NPC(Entity):
 
 
 class NPCHostile(NPC):
-    def __init__(self, name, nb_points, dialog, damage_amount):
+    def __init__(self, name, nb_points, dialog):
         super().__init__(name, nb_points, dialog)
-        self.damage_amount = damage_amount
 
     def update(self):
         super().update()
@@ -126,5 +124,5 @@ class NPCHostile(NPC):
 
     def check_collision_with_player(self):
         if self.rect.colliderect(self.player.rect):
-            self.player.damage(self.damage_amount)
+            self.player.damage(10)
     
