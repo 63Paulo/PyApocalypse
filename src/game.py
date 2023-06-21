@@ -6,7 +6,7 @@ from map import MapManager
 
 
 from dialog import DialogBox
-from player import Player
+from player import Player, NPCHostile
 
 
 
@@ -16,6 +16,7 @@ class Game:
         pygame.display.set_caption('PyApocalypse')
 
         self.player = Player()
+        self.npc_hostile = NPCHostile()
         self.map_manager = MapManager(self.screen, self.player)
         self.dialog_box = DialogBox()
         self.game_over = False
@@ -66,6 +67,7 @@ class Game:
             self.map_manager.draw()
             self.dialog_box.render(self.screen)
             self.player.update_health_bar(self.screen)
+            self.npc_hostile.update_health_bar(self.screen)
             pygame.display.flip()
 
             for event in pygame.event.get():

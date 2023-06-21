@@ -144,3 +144,16 @@ class NPCHostile(NPC):
         if self.rect.colliderect(self.player.rect):
             self.player.damage(0.5)
     
+    def update_health_bar(self, surface):
+        bar_color = (0, 255, 255)
+        back_bar_color = (255, 0, 0)
+        bar_position = [self.rect.x, self.rect.y, self.health, 5]
+        back_bar_position = [self.rect.x, self.rect.y, self.max_health, 5]
+
+        pygame.draw.rect(surface, back_bar_color, back_bar_position)
+        pygame.draw.rect(surface, bar_color, bar_position)
+
+    def damage(self, amount):
+        #Infliger les dégats
+        self.health -= amount
+    
