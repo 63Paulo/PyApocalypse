@@ -33,6 +33,8 @@ class MapManager:
 
         self.register_map('world', portals=[
             Portal(from_world='world', origin_point='enter_spawnhouse', target_world='spawn_house', teleport_point='enterspawn_spawnhouse')
+        ], hostile_npcs=[
+            NPC('player1', nb_points=2, dialog=["aaeezzdzfffzefzazfaf"])
         ])
         self.register_map('spawn_house', portals=[
             Portal(from_world='spawn_house', origin_point='exit_spawnhouse', target_world='world', teleport_point='exitspawn_spawnhouse'),
@@ -40,7 +42,8 @@ class MapManager:
         ],
         npcs=[
             NPC('spawnnpc', nb_points=4, dialog=["Ne bougez plus ! Vous êtes quoi, un zombie ?", "Oh, un survivant !", "Ca alors, je ne m'attendais pas a en voir de si tôt"])
-        ])
+        ]
+        )
         self.register_map('map_levelone', portals=[
             Portal(from_world='map_levelone', origin_point='enter_spawnhouse_fromlvl1', target_world='spawn_house', teleport_point='exitspawn_level1'),
             Portal(from_world='map_levelone', origin_point='enterhouse1_lvl1', target_world='house1_lvl1', teleport_point='enterspawn_house1_lvl1'),
@@ -146,10 +149,16 @@ class MapManager:
         for map in self.maps:
             map_data = self.maps[map]
             npcs = map_data.npcs
+            hostile_npcs = map_data.hostile_npcs
 
             for npc in npcs:
                 npc.load_points(map_data.tmx_data)
                 npc.teleport_spawn()
+
+            for hostile_npc in hostile_npcs:
+                hostile_npc.load_points(map_data.tmx_data)
+                hostile_npc.teleport_spawn()
+    
     
     def draw(self):
         self.get_group().draw(self.screen)

@@ -127,3 +127,4 @@ class NPCHostile(NPC):
     def check_collision_with_player(self):
         if self.rect.colliderect(self.player.rect):
             self.player.damage(self.damage_amount)
+    
