@@ -117,12 +117,28 @@ class NPC(Entity):
 class NPCHostile(NPC):
     def __init__(self, name, nb_points, dialog):
         super().__init__(name, nb_points, dialog)
-        
+        self.speed = 0.5
+
+    def pursue_player(self):
+        player_position = self.player.position
+        npc_position = self.position
+
+        if player_position[0] < npc_position[0]:
+            self.move_left()
+        elif player_position[0] > npc_position[0]:
+            self.move_right()
+
+        if player_position[1] < npc_position[1]:
+            self.move_up()
+        elif player_position[1] > npc_position[1]:
+            self.move_down()
+
     def update(self):
         super().update()
         self.check_collision_with_player()
+        self.pursue_player()
 
     def check_collision_with_player(self):
         if self.rect.colliderect(self.player.rect):
-            self.player.damage(10)
+            self.player.damage(0.5)
     

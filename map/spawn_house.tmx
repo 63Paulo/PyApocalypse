@@ -124,9 +124,9 @@
   <object id="19" type="collision" x="160.182" y="95.6364" width="62.7273" height="24.7273"/>
  </objectgroup>
  <objectgroup id="8" name="NPCPaths">
-  <object id="21" name="spawnnpc_path1" x="79.9091" y="80" width="16" height="16"/>
-  <object id="22" name="spawnnpc_path2" x="143.636" y="79.4545" width="16.9091" height="16.3636"/>
-  <object id="23" name="spawnnpc_path3" x="143.636" y="144" width="16.7273" height="16"/>
-  <object id="24" name="spawnnpc_path4" x="80.1818" y="144" width="16.1818" height="16"/>
+  <object id="21" name="player1_path1" x="79.9091" y="80" width="16" height="16"/>
+  <object id="22" name="player1_path2" x="143.636" y="79.4545" width="16.9091" height="16.3636"/>
+  <object id="23" name="player1_path3" x="143.636" y="144" width="16.7273" height="16"/>
+  <object id="24" name="player1_path4" x="80.1818" y="144" width="16.1818" height="16"/>
  </objectgroup>
 </map>

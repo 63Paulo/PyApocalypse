@@ -34,14 +34,14 @@ class MapManager:
         self.register_map('world', portals=[
             Portal(from_world='world', origin_point='enter_spawnhouse', target_world='spawn_house', teleport_point='enterspawn_spawnhouse')
         ], hostile_npcs=[
-            NPCHostile('player1', nb_points=2, dialog=["aaeezzdzfffzefzazfaf"])
+            NPCHostile('zombie', nb_points=1, dialog=["aaeezzdzfffzefzazfaf"])
         ])
         self.register_map('spawn_house', portals=[
             Portal(from_world='spawn_house', origin_point='exit_spawnhouse', target_world='world', teleport_point='exitspawn_spawnhouse'),
             Portal(from_world='spawn_house', origin_point='enter_level1', target_world='map_levelone', teleport_point='enterspawn_level1')
         ],
         npcs=[
-            NPC('spawnnpc', nb_points=4, dialog=["Ne bougez plus ! Vous êtes quoi, un zombie ?", "Oh, un survivant !", "Ca alors, je ne m'attendais pas a en voir de si tôt"])
+            NPC('player1', nb_points=4, dialog=["Ne bougez plus ! Vous êtes quoi, un zombie ?", "Oh, un survivant !", "Ca alors, je ne m'attendais pas a en voir de si tôt"])
         ]
         )
         self.register_map('map_levelone', portals=[
