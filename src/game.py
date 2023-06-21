@@ -21,7 +21,6 @@ class Game:
         self.game_over = False
 
     def handle_input(self):
-
         pressed = pygame.key.get_pressed()
 
         if pressed[pygame.K_z]:
@@ -37,38 +36,30 @@ class Game:
         self.map_manager.update()
 
     def game_over_screen(self):
-        while True:
-            self.screen.fill((0, 0, 0))
-            game_over_text = pygame.font.Font(None, 36).render("Game Over", True, (255, 255, 255))
-            game_over_rect = game_over_text.get_rect(center=(400, 300))
-            self.screen.blit(game_over_text, game_over_rect)
+        self.screen.fill((0, 0, 0))  # Remplir l'écran avec une couleur noire
 
-            restart_text = pygame.font.Font(None, 24).render("Press R to restart", True, (255, 255, 255))
-            restart_rect = restart_text.get_rect(center=(400, 350))
-            self.screen.blit(restart_text, restart_rect)
+        # Afficher le texte "Game Over"
+        font = pygame.font.Font(None, 36)
+        text = font.render("Game Over", True, (255, 255, 255))
+        text_rect = text.get_rect(center=(400, 300))
+        self.screen.blit(text, text_rect)
 
-            pygame.display.flip()
+        # Afficher le texte "Appuyez sur R pour rejouer"
+        restart_text = font.render("Appuyez sur R pour rejouer", True, (255, 255, 255))
+        restart_rect = restart_text.get_rect(center=(400, 350))
+        self.screen.blit(restart_text, restart_rect)
 
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    pygame.quit()
-                    quit()
-                elif event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_r:
-                        return
+        pygame.display.flip()
 
     def run(self):
         clock = pygame.time.Clock()
         running = True
-  
 
         while running:
-            
             for projectile in self.player.all_projectiles:
                 projectile.move()
 
             self.player.all_projectiles.draw(self.screen)
-            
             self.player.save_location()
             self.handle_input()
             self.update()
@@ -77,19 +68,27 @@ class Game:
             self.player.update_health_bar(self.screen)
             pygame.display.flip()
 
-            for event  in pygame.event.get():
+            for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     running = False
                 elif event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_SPACE:
                         self.map_manager.check_npc_collision(self.dialog_box)
                         self.player.launch_projectile()
-                    if self.player.is_dead():
-                        self.game_over()
+
+            if self.player.is_dead():
+                self.game_over = True
+
+            if self.game_over:
+                self.game_over_screen()
+                for event in pygame.event.get():
+                    if event.type == pygame.KEYDOWN:
+                        if event.key == pygame.K_r:
+                            self.game_over = False
+                            self.player = Player()
+                            self.map_manager = MapManager(self.screen, self.player)
+                            self.dialog_box = DialogBox()
 
             clock.tick(60)
-        
-
-
 
         pygame.quit()
