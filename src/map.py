@@ -4,7 +4,7 @@ import pytmx
 import pyscroll
 from pygame.locals import *
 
-from player import NPC
+from player import NPC, NPCHostile
 
 @dataclass
 class Portal:
@@ -34,7 +34,7 @@ class MapManager:
         self.register_map('world', portals=[
             Portal(from_world='world', origin_point='enter_spawnhouse', target_world='spawn_house', teleport_point='enterspawn_spawnhouse')
         ], hostile_npcs=[
-            NPC('player1', nb_points=2, dialog=["aaeezzdzfffzefzazfaf"])
+            NPCHostile('player1', nb_points=2, dialog=["aaeezzdzfffzefzazfaf"])
         ])
         self.register_map('spawn_house', portals=[
             Portal(from_world='spawn_house', origin_point='exit_spawnhouse', target_world='world', teleport_point='exitspawn_spawnhouse'),
@@ -128,6 +128,8 @@ class MapManager:
 
         for hostile_npc in hostile_npcs:
             group.add(hostile_npc)
+
+            hostile_npc.player = self.player
 
         #créer objet map
         self.maps[name] = Map(name, walls, group, tmx_data, portals, npcs, hostile_npcs)

@@ -117,7 +117,7 @@ class NPC(Entity):
 class NPCHostile(NPC):
     def __init__(self, name, nb_points, dialog):
         super().__init__(name, nb_points, dialog)
-
+        
     def update(self):
         super().update()
         self.check_collision_with_player()
