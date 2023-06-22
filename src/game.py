@@ -19,6 +19,7 @@ class Game:
         self.map_manager = MapManager(self.screen, self.player)
         self.dialog_box = DialogBox()
         self.game_over = False
+        self.inventory_visible = False
 
     def handle_input(self):
         pressed = pygame.key.get_pressed()
@@ -36,15 +37,13 @@ class Game:
         self.map_manager.update()
 
     def game_over_screen(self):
-        self.screen.fill((20, 20, 20))  # Remplir l'écran avec une couleur noire
+        self.screen.fill((20, 20, 20)) 
 
-        # Afficher le texte "Game Over"
         font = pygame.font.Font(None, 36)
         text = font.render("GAME OVER", True, (150, 0, 24))
         text_rect = text.get_rect(center=(400, 300))
         self.screen.blit(text, text_rect)
 
-        # Afficher le texte "Appuyez sur R pour rejouer"
         restart_text = font.render("Appuyez sur R pour rejouer", True, (255, 255, 255))
         restart_rect = restart_text.get_rect(center=(400, 350))
         self.screen.blit(restart_text, restart_rect)
@@ -52,7 +51,8 @@ class Game:
         pygame.display.flip()
 
     def draw_inventory(self):
-        self.player.inventory.draw(self.screen)  
+         if self.inventory_visible:
+            self.player.inventory.draw(self.screen)
 
     def run(self):
         clock = pygame.time.Clock()
@@ -76,7 +76,9 @@ class Game:
                     if event.key == pygame.K_SPACE:
                         self.map_manager.check_npc_collision(self.dialog_box)
                     elif event.key == pygame.K_i:
-                        self.draw_inventory()
+                        self.inventory_visible = not self.inventory_visible  
+            self.draw_inventory()
+            pygame.display.flip()
 
             if self.player.is_dead():
                 self.game_over_screen()
@@ -93,7 +95,6 @@ class Game:
                                 self.player = Player()
                                 self.map_manager = MapManager(self.screen, self.player)
                                 self.dialog_box = DialogBox()
-                    
-            clock.tick(60)
 
+            clock.tick(60)
         pygame.quit()
