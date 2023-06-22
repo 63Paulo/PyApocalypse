@@ -5,15 +5,15 @@ from pygame.locals import *
 from map import MapManager
 
 from dialog import DialogBox
-from player import Player
+from player import NPCHostile, Player
 
 
 
 class Game:
     def __init__(self):
         self.screen = pygame.display.set_mode((800, 600))
-        pygame.display.set_caption('PyApocalypse')
-
+        pygame.display.set_caption('Apocalypse')
+        self.npc_hostile = NPCHostile("Walk", 0, [""])
         self.player = Player()
         self.map_manager = MapManager(self.screen, self.player)
         self.dialog_box = DialogBox()
@@ -68,6 +68,7 @@ class Game:
             self.map_manager.draw()
             self.dialog_box.render(self.screen)
             self.player.update_health_bar(self.screen)
+            self.npc_hostile.update_health_bar(self.screen)
             pygame.display.flip()
 
             for event in pygame.event.get():
@@ -84,16 +85,16 @@ class Game:
                 self.player.animate_death()
                 self.game_over = True
 
-            if self.game_over:
-                self.game_over_screen()
-                for event in pygame.event.get():
-                    if event.type == pygame.KEYDOWN:
-    
-                        if event.key == pygame.K_r:
-                            self.game_over = False
-                            self.player = Player()
-                            self.map_manager = MapManager(self.screen, self.player)
-                            self.dialog_box = DialogBox()
+                if self.game_over:
+                    self.game_over_screen()
+                    for event in pygame.event.get():
+                        if event.type == pygame.KEYDOWN:
+        
+                            if event.key == pygame.K_r:
+                                self.game_over = False
+                                self.player = Player()
+                                self.map_manager = MapManager(self.screen, self.player)
+                                self.dialog_box = DialogBox()
                     
             clock.tick(60)
 
