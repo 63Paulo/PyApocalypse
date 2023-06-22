@@ -50,6 +50,9 @@ class Game:
 
         pygame.display.flip()
 
+    def draw_inventory(self):
+        self.player.inventory.draw(self.screen)  
+
     def run(self):
         clock = pygame.time.Clock()
         running = True
@@ -74,6 +77,8 @@ class Game:
                     if event.key == pygame.K_SPACE:
                         self.map_manager.check_npc_collision(self.dialog_box)
                         self.player.launch_projectile()
+                    if event.key == pygame.K_e:
+                        self.draw_inventory()
 
             if self.player.is_dead():
                 self.player.animate_death()
@@ -83,8 +88,6 @@ class Game:
                 self.game_over_screen()
                 for event in pygame.event.get():
                     if event.type == pygame.KEYDOWN:
-                        if event.key == K_e:
-                            self.draw_inventory()
     
                         if event.key == pygame.K_r:
                             self.game_over = False
