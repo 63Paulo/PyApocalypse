@@ -3,7 +3,7 @@ import pytmx
 import pyscroll
 from pygame.locals import *
 from map import MapManager
-
+from inventory import Inventory
 from dialog import DialogBox
 from player import NPCHostile, Player
 
@@ -16,6 +16,7 @@ class Game:
         self.npc_hostile = NPCHostile("Walk", 0, [""])
         self.npc_hostile = NPCHostile("Walk2", 0, [""])
         self.player = Player()
+        self.inventory = Inventory(10)
         self.map_manager = MapManager(self.screen, self.player)
         self.dialog_box = DialogBox()
         self.game_over = False
@@ -34,7 +35,6 @@ class Game:
 
     def update(self):
         self.map_manager.update()
-        self.player.update_projectiles()
 
     def game_over_screen(self):
         self.screen.fill((20, 20, 20))  # Remplir l'écran avec une couleur noire
@@ -53,7 +53,7 @@ class Game:
         pygame.display.flip()
 
     def draw_inventory(self):
-        self.player.inventory.draw(self.screen)  
+        self.inventory.draw(self.screen)  
 
     def run(self):
         clock = pygame.time.Clock()
@@ -76,8 +76,9 @@ class Game:
                 elif event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_SPACE:
                         self.map_manager.check_npc_collision(self.dialog_box)
-                        self.player.throw_projectile()
                     if event.key == pygame.K_e:
+                        self.draw_inventory()
+                    if event.key == pygame.K_i:
                         self.draw_inventory()
 
             if self.player.is_dead():
