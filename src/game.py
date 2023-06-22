@@ -14,6 +14,7 @@ class Game:
         self.screen = pygame.display.set_mode((800, 600))
         pygame.display.set_caption('Apocalypse')
         self.npc_hostile = NPCHostile("Walk", 0, [""])
+        self.npc_hostile = NPCHostile("Walk2", 0, [""])
         self.player = Player()
         self.map_manager = MapManager(self.screen, self.player)
         self.dialog_box = DialogBox()
@@ -33,6 +34,7 @@ class Game:
 
     def update(self):
         self.map_manager.update()
+        self.player.update_projectiles()
 
     def game_over_screen(self):
         self.screen.fill((20, 20, 20))  # Remplir l'écran avec une couleur noire
@@ -58,10 +60,7 @@ class Game:
         running = True
 
         while running:
-            for projectile in self.player.all_projectiles:
-                projectile.move()
 
-            self.player.all_projectiles.draw(self.screen)
             self.player.save_location()
             self.handle_input()
             self.update()
@@ -77,7 +76,7 @@ class Game:
                 elif event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_SPACE:
                         self.map_manager.check_npc_collision(self.dialog_box)
-                        self.player.launch_projectile()
+                        self.player.throw_projectile()
                     if event.key == pygame.K_e:
                         self.draw_inventory()
 

@@ -1,7 +1,6 @@
 
 import pygame
 from inventory import Inventory
-from projectile import Projectile
 
 from animation import AnimateSprite
 
@@ -17,12 +16,8 @@ class Entity(AnimateSprite):
         self.old_position = self.position.copy()
         self.health = 100
         self.max_health = 100
-        self.all_projectiles = pygame.sprite.Group()
         self.inventory = Inventory(capacity=10)
-
-    def launch_projectile(self):
-        projectile = Projectile(self)
-        self.all_projectiles.add(projectile)
+        self.projectiles = []
 
     def update_health_bar(self, surface):
         bar_color = (79, 152, 0)
@@ -66,6 +61,17 @@ class Entity(AnimateSprite):
         self.position = self.old_position
         self.rect.topleft = self.position
         self.feet.midbottom = self.rect.midbottom
+
+    def throw_projectile(self):
+        projectile = Projectile(self.rect.centerx, self.rect.centery, self.direction)
+        self.projectiles.append(projectile)
+
+    def update_projectiles(self):
+        for projectile in self.projectiles:
+            projectile.update()
+            if projectile.is_colliding_with_enemy(self.npc_hostile):
+                self.npc_hostile.damage(projectile.damage)
+                self.projectiles.remove(projectile)
     
     
 class Player(Entity):
@@ -148,8 +154,8 @@ class NPCHostile(NPC):
             self.player.damage(0.5)
     
     def update_health_bar(self, surface):
-        bar_color = (0, 255, 255)
-        back_bar_color = (255, 0, 0)
+        bar_color = (130,30 , 0)
+        back_bar_color = (30, 30, 30)
         bar_position = [self.rect.x, self.rect.y, self.health, 5]
         back_bar_position = [self.rect.x, self.rect.y, self.max_health, 5]
 
@@ -160,3 +166,25 @@ class NPCHostile(NPC):
         #Infliger les dégats
         self.health -= amount
     
+class Projectile:
+    def __init__(self, x, y, direction):
+        self.image = pygame.image.load("sprite/Bullet-PNG.png")  
+        self.rect = self.image.get_rect()
+        self.rect.centerx = x
+        self.rect.centery = y
+        self.speed = 5  
+        self.direction = direction  
+        self.damage = 10 
+
+    def update(self):
+        if self.direction == "right":
+            self.rect.x += self.speed
+        elif self.direction == "left":
+            self.rect.x -= self.speed
+        elif self.direction == "up":
+            self.rect.y -= self.speed
+        elif self.direction == "down":
+            self.rect.y += self.speed
+
+    def is_colliding_with_enemy(self, enemy):
+        return self.rect.colliderect(enemy.rect)
