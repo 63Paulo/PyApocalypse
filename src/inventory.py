@@ -6,7 +6,9 @@ from pygame.locals import *
 class Inventory:
     def __init__(self, capacity):
         self.capacity = capacity
-        self.items = []
+        self.items = [
+
+        ]
 
     def add_item(self, item):
         if len(self.items) < self.capacity:
@@ -23,7 +25,7 @@ class Inventory:
             print("Objet non présent dans le sac à dos")
 
     def draw(self, surface):
-        pygame.draw.rect(surface, (255, 255, 255), (10, 10, 200, 100))
+        pygame.draw.rect(surface, (255, 255, 255), (10, 10, 780, 300))
 
         font = pygame.font.Font(None, 24)
         for i, item in enumerate(self.items):

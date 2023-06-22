@@ -32,6 +32,13 @@ class Game:
             self.player.move_left()
         elif pressed[pygame.K_d]:
             self.player.move_right()
+        
+        if pressed[pygame.K_i]:
+            if not self.inventory_key_pressed:
+                self.inventory_key_pressed = True
+                self.inventory_visible = not self.inventory_visible
+        else:
+            self.inventory_key_pressed = False
 
     def update(self):
         self.map_manager.update()
@@ -67,6 +74,7 @@ class Game:
             self.dialog_box.render(self.screen)
             self.player.update_health_bar(self.screen)
             self.npc_hostile.update_health_bar(self.screen)
+            self.draw_inventory()
             pygame.display.flip()
 
             for event in pygame.event.get():
@@ -75,10 +83,7 @@ class Game:
                 elif event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_SPACE:
                         self.map_manager.check_npc_collision(self.dialog_box)
-                    elif event.key == pygame.K_i:
-                        self.inventory_visible = not self.inventory_visible  
-            self.draw_inventory()
-            pygame.display.flip()
+
 
             if self.player.is_dead():
                 self.game_over_screen()
