@@ -15,8 +15,7 @@ class Game:
         pygame.display.set_caption('Apocalypse')
         self.npc_hostile = NPCHostile("Walk", 0, [""])
         self.npc_hostile = NPCHostile("Walk2", 0, [""])
-        self.player = Player()
-        self.inventory = Inventory(capacity=10)
+        self.player = Player()        
         self.map_manager = MapManager(self.screen, self.player)
         self.dialog_box = DialogBox()
         self.game_over = False
@@ -53,7 +52,7 @@ class Game:
         pygame.display.flip()
 
     def draw_inventory(self):
-        self.inventory.draw(self.screen)  
+        self.player.inventory.draw(self.screen)  
 
     def run(self):
         clock = pygame.time.Clock()
@@ -76,7 +75,7 @@ class Game:
                 elif event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_SPACE:
                         self.map_manager.check_npc_collision(self.dialog_box)
-                    if event.key == pygame.K_i:
+                    elif event.key == pygame.K_i:
                         self.draw_inventory()
 
             if self.player.is_dead():

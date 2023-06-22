@@ -1,4 +1,6 @@
 import pygame
+import pytmx
+import pyscroll
 from pygame.locals import *
 
 class Inventory:
