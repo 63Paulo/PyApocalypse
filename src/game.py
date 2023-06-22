@@ -83,12 +83,15 @@ class Game:
                 self.game_over_screen()
                 for event in pygame.event.get():
                     if event.type == pygame.KEYDOWN:
+                        if event.key == K_e:
+                            self.draw_inventory()
+    
                         if event.key == pygame.K_r:
                             self.game_over = False
                             self.player = Player()
                             self.map_manager = MapManager(self.screen, self.player)
                             self.dialog_box = DialogBox()
-
+                    
             clock.tick(60)
 
         pygame.quit()

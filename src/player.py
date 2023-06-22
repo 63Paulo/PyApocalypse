@@ -1,5 +1,6 @@
 
 import pygame
+from inventory import Inventory
 from projectile import Projectile
 
 from animation import AnimateSprite
@@ -17,6 +18,7 @@ class Entity(AnimateSprite):
         self.health = 100
         self.max_health = 100
         self.all_projectiles = pygame.sprite.Group()
+        self.inventory = Inventory(capacity=10)
 
     def launch_projectile(self):
         projectile = Projectile(self)
@@ -64,6 +66,8 @@ class Entity(AnimateSprite):
         self.position = self.old_position
         self.rect.topleft = self.position
         self.feet.midbottom = self.rect.midbottom
+
+    
     
 class Player(Entity):
     def __init__(self):
