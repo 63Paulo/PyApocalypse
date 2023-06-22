@@ -6,6 +6,7 @@ class AnimateSprite(pygame.sprite.Sprite):
     def __init__(self, name):
         super().__init__()
         self.sprite_sheet = pygame.image.load(f"sprite/{name}.png")
+        self.death_sprite_sheet = pygame.image.load("sprite/player/death.png")
         self.animation_index = 0
         self.clock = 0
         self.images = {
@@ -13,6 +14,12 @@ class AnimateSprite(pygame.sprite.Sprite):
             'up' : self.get_images(32),
             'right' : self.get_images(64),
             'left' : self.get_images(96)
+        }
+        self.death_animations = {
+            'down': self.get_death_animation(0),
+            'up': self.get_death_animation(32),
+            'right': self.get_death_animation(64),
+            'left': self.get_death_animation(96)
         }
         self.speed = 2.05
 
@@ -44,3 +51,27 @@ class AnimateSprite(pygame.sprite.Sprite):
         image = pygame.Surface([32,32])
         image.blit(self.sprite_sheet, (0,0), (x,y,32,32))
         return image
+
+    def get_death_animation(self, direction_index):
+        images = []
+        sprite_width = self.death_sprite_sheet.get_width() // 4
+        sprite_height = self.death_sprite_sheet.get_height() // 4
+
+        for i in range(4):
+            x = i * sprite_width
+            y = direction_index * sprite_height
+            image = pygame.Surface([sprite_width, sprite_height])
+            image.blit(self.death_sprite_sheet, (0, 0), (x, y, sprite_width, sprite_height))
+            images.append(image)
+
+        return images
+    
+    def animate_death(self):
+        direction = 'up'
+        death_animation = self.death_animations[direction]
+
+        for image in death_animation:
+            self.image = image
+            self.image.set_colorkey(0, 0)
+            pygame.display.flip()
+            pygame.time.wait(100)  

@@ -4,9 +4,8 @@ import pyscroll
 from pygame.locals import *
 from map import MapManager
 
-
 from dialog import DialogBox
-from player import Player, NPCHostile
+from player import Player
 
 
 
@@ -16,7 +15,6 @@ class Game:
         pygame.display.set_caption('PyApocalypse')
 
         self.player = Player()
-        self.npc_hostile = NPCHostile()
         self.map_manager = MapManager(self.screen, self.player)
         self.dialog_box = DialogBox()
         self.game_over = False
@@ -67,7 +65,6 @@ class Game:
             self.map_manager.draw()
             self.dialog_box.render(self.screen)
             self.player.update_health_bar(self.screen)
-            self.npc_hostile.update_health_bar(self.screen)
             pygame.display.flip()
 
             for event in pygame.event.get():
@@ -79,6 +76,7 @@ class Game:
                         self.player.launch_projectile()
 
             if self.player.is_dead():
+                self.player.animate_death()
                 self.game_over = True
 
             if self.game_over:
