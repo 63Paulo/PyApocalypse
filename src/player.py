@@ -25,7 +25,7 @@ class Entity(AnimateSprite):
         self.all_projectiles.add(projectile)
 
     def update_health_bar(self, surface):
-        bar_color = (0, 255, 255)
+        bar_color = (79, 152, 0)
         back_bar_color = (255, 0, 0)
         bar_position = [self.rect.x, self.rect.y, self.health, 5]
         back_bar_position = [self.rect.x, self.rect.y, self.max_health, 5]
@@ -66,7 +66,6 @@ class Entity(AnimateSprite):
         self.position = self.old_position
         self.rect.topleft = self.position
         self.feet.midbottom = self.rect.midbottom
-
     
     
 class Player(Entity):

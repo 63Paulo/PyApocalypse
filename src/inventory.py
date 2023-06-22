@@ -9,16 +9,16 @@ class Inventory:
     def add_item(self, item):
         if len(self.items) < self.capacity:
             self.items.append(item)
-            print(f"Added item: {item}")
+            print(f"Objet ajouté {item}")
         else:
-            print("Inventory is full!")
+            print("Le sac à dos est plein !")
 
     def remove_item(self, item):
         if item in self.items:
             self.items.remove(item)
-            print(f"Removed item: {item}")
+            print(f"Retirer l'objet {item}")
         else:
-            print("Item not found in inventory!")
+            print("Objet non présent dans le sac à dos")
 
     def draw(self, surface):
         pygame.draw.rect(surface, (255, 255, 255), (10, 10, 200, 100))

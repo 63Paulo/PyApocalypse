@@ -35,11 +35,11 @@ class Game:
         self.map_manager.update()
 
     def game_over_screen(self):
-        self.screen.fill((0, 0, 0))  # Remplir l'écran avec une couleur noire
+        self.screen.fill((20, 20, 20))  # Remplir l'écran avec une couleur noire
 
         # Afficher le texte "Game Over"
         font = pygame.font.Font(None, 36)
-        text = font.render("Game Over", True, (255, 255, 255))
+        text = font.render("GAME OVER", True, (150, 0, 24))
         text_rect = text.get_rect(center=(400, 300))
         self.screen.blit(text, text_rect)
 
@@ -82,11 +82,12 @@ class Game:
                         self.draw_inventory()
 
             if self.player.is_dead():
+                self.game_over_screen()
                 self.player.animate_death()
                 self.game_over = True
 
                 if self.game_over:
-                    self.game_over_screen()
+
                     for event in pygame.event.get():
                         if event.type == pygame.KEYDOWN:
         
