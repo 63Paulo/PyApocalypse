@@ -3,6 +3,7 @@ import pygame
 import pytmx
 import pyscroll
 from pygame.locals import *
+from lootable import Lootable
 from player import NPC, NPCHostile
 
 @dataclass
@@ -17,7 +18,7 @@ class Portal:
 class Map:
     name: str
     walls: list[pygame.Rect]
-    lootables: list[pygame.Rect]
+    lootables: list[Lootable]
     group: pyscroll.PyscrollGroup
     tmx_data: pytmx.TiledMap
     portals : list[Portal]
@@ -100,7 +101,7 @@ class MapManager:
             if sprite.feet.collidelist(self.get_walls()) > -1:
                 sprite.move_back()
 
-        for lootable in self.lootables:
+        for lootable in self.get_map().lootables:
             if lootable.rect.colliderect(self.player.rect):
                 if self.player.inventory.add_item(lootable.items):
                     self.lootables.remove(lootable)
@@ -129,9 +130,9 @@ class MapManager:
             if obj.type == "collision":
                 walls.append(pygame.Rect(obj.x, obj.y, obj.width, obj.height))
 
-        for obj in tmx_data.objects:
-            if obj.type == "lootable":
-                lootables.append(pygame.Rect(obj.x, obj.y, obj.width, obj.height))
+            elif obj.type == "lootable":
+                items = obj.properties.get("items", "").split(",")
+                lootables.append(Lootable(obj.x, obj.y, obj.width, obj.height, items))
 
         group = pyscroll.PyscrollGroup(map_layer=map_layer, default_layer=3)
         group.add(self.player)
@@ -148,7 +149,16 @@ class MapManager:
         
 
         #créer objet map
-        self.maps[name] = Map(name, walls, group, tmx_data, portals, npcs, hostile_npcs)
+        self.maps[name] = Map(name, walls, lootables, group, tmx_data, portals, npcs, hostile_npcs)
+
+    def check_loot_collision(self):
+         for lootable in self.get_map().lootables:
+            if lootable.rect.colliderect(self.player.rect):
+                if self.player.inventory.add_item(lootable.items):
+                    self.get_map().lootables.remove(lootable)
+                    print("Vous avez trouvé de nouveaux objets !")
+                else:
+                    print("L'inventaire est plein.")
 
     def get_map(self):
         return self.maps[self.current_map]
@@ -189,8 +199,10 @@ class MapManager:
     def update(self):
         self.get_group().update()
         self.check_collisions()
+        self.check_loot_collision()
 
         for npc in self.get_map().npcs:
             npc.move()
         for hostile_npc in self.get_map().hostile_npcs:
             hostile_npc.move()
+
