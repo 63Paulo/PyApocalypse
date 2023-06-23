@@ -17,5 +17,5 @@ class Projectile(pygame.sprite.Sprite) :
 
     def check_collision_with_npc(self, npc):
         if pygame.sprite.collide_rect(self, npc):
-            npc.damage(10)
+            npc.damage(50)
             self.kill()

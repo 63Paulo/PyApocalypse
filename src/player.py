@@ -159,3 +159,6 @@ class NPCHostile(NPC):
         #Infliger les dégats
         self.health -= amount
     
+    def is_dead(self):
+        return self.health <= 0
+    

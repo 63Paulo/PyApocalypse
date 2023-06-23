@@ -97,6 +97,8 @@ class Game:
                 elif event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_SPACE:
                         self.map_manager.check_npc_collision(self.dialog_box)
+                    if self.npc_hostile.is_dead():
+                        self.npc_hostile.kill()
 
 
             if self.player.is_dead():
