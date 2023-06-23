@@ -3,8 +3,6 @@ import pygame
 import pytmx
 import pyscroll
 from pygame.locals import *
-from obstacle import Obstacle
-
 from player import NPC, NPCHostile
 
 @dataclass
@@ -19,6 +17,7 @@ class Portal:
 class Map:
     name: str
     walls: list[pygame.Rect]
+    lootables: list[pygame.Rect]
     group: pyscroll.PyscrollGroup
     tmx_data: pytmx.TiledMap
     portals : list[Portal]
@@ -101,6 +100,14 @@ class MapManager:
             if sprite.feet.collidelist(self.get_walls()) > -1:
                 sprite.move_back()
 
+        for lootable in self.lootables:
+            if lootable.rect.colliderect(self.player.rect):
+                if self.player.inventory.add_item(lootable.items):
+                    self.lootables.remove(lootable)
+                    print("Vous avez trouvé de nouveaux objets !")
+                else:
+                    print("L'inventaire est plein.")
+
     def teleport_player(self, name):
         point = self.get_object(name)
         self.player.position[0] = point.x
@@ -116,18 +123,15 @@ class MapManager:
         map_layer.zoom = 2
 
         walls = []
-        obstacles = []
+        lootables = []
 
         for obj in tmx_data.objects:
             if obj.type == "collision":
                 walls.append(pygame.Rect(obj.x, obj.y, obj.width, obj.height))
-            if obj.type == "obstacle":
-                x = obj.x
-                y = obj.y
-                item = obj.properties.get("item")  
-                obstacle = Obstacle(x, y, item)
-                obstacles.append(obstacle)
 
+        for obj in tmx_data.objects:
+            if obj.type == "lootable":
+                lootables.append(pygame.Rect(obj.x, obj.y, obj.width, obj.height))
 
         group = pyscroll.PyscrollGroup(map_layer=map_layer, default_layer=3)
         group.add(self.player)
@@ -141,9 +145,6 @@ class MapManager:
             group.add(hostile_npc)
 
             hostile_npc.player = self.player
-        
-        for obstacle in obstacles:
-            group.add(obstacle)
         
 
         #créer objet map
@@ -184,15 +185,6 @@ class MapManager:
         self.get_group().draw(self.screen)
         self.get_group().center(self.player.rect.center)
 
-    def check_obstacle_collision(self):
-        for obstacle in self.obstacles:
-            if self.player.rect.colliderect(obstacle.rect):
-                if obstacle.item:  # Vérifiez si l'obstacle a un objet
-                    if self.player.inventory.add_item(obstacle.item):
-                        obstacle.item = None  # Supprimez l'objet de l'obstacle une fois qu'il est ajouté à l'inventaire
-                        print("Vous avez trouvé un nouvel objet !")
-                    else:
-                        print("L'inventaire est plein.")
 
     def update(self):
         self.get_group().update()
