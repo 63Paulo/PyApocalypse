@@ -16,6 +16,7 @@ class Game:
         self.npc_hostile = NPCHostile("Walk", 0, [""])
         self.npc_hostile = NPCHostile("Walk2", 0, [""])
         self.player = Player()        
+        self.is_launching_projectile = False
         self.map_manager = MapManager(self.screen, self.player)
         self.dialog_box = DialogBox()
         self.game_over = False
@@ -40,8 +41,16 @@ class Game:
         else:
             self.inventory_key_pressed = False
 
+        if pressed[pygame.K_SPACE]:
+            self.is_launching_projectile = True
+        else :
+            if self.is_launching_projectile:
+                self.is_launching_projectile = False
+                self.player.launch_projectile()
+
     def update(self):
         self.map_manager.update()
+        self.player.projectiles.update()
 
     def game_over_screen(self):
         self.screen.fill((20, 20, 20)) 
@@ -75,6 +84,7 @@ class Game:
             self.player.update_health_bar(self.screen)
             self.npc_hostile.update_health_bar(self.screen)
             self.draw_inventory()
+            self.player.projectiles.draw(self.screen)
             pygame.display.flip()
 
             for event in pygame.event.get():

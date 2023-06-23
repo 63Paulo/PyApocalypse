@@ -3,6 +3,7 @@ import pygame
 from inventory import Inventory
 
 from animation import AnimateSprite
+from projectile import Projectile
 
 class Entity(AnimateSprite):
 
@@ -17,6 +18,7 @@ class Entity(AnimateSprite):
         self.health = 100
         self.max_health = 100
         self.inventory = Inventory(capacity=10)
+        self.projectiles = pygame.sprite.Group()
 
     def update_health_bar(self, surface):
         bar_color = (79, 152, 0)
@@ -60,7 +62,10 @@ class Entity(AnimateSprite):
         self.position = self.old_position
         self.rect.topleft = self.position
         self.feet.midbottom = self.rect.midbottom
-    
+
+    def launch_projectile(self):
+        projectile = Projectile('sprite/player/Bullet.png', self.rect.center, [1,0], 5)
+        self.projectiles.add(projectile)
     
 class Player(Entity):
     def __init__(self):
