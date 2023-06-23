@@ -14,3 +14,8 @@ class Projectile(pygame.sprite.Sprite) :
     def update(self):
         self.rect.x += self.direction[0] * self.speed
         self.rect.y += self.direction[1] * self.speed
+
+    def check_collision_with_npc(self, npc):
+        if pygame.sprite.collide_rect(self, npc):
+            npc.damage(10)
+            self.kill()

@@ -30,6 +30,7 @@ class MapManager:
         self.screen = screen
         self.player = player
         self.current_map = 'world'
+        self.npc_hostiles = []
 
         self.register_map('world', portals=[
             Portal(from_world='world', origin_point='enter_spawnhouse', target_world='spawn_house', teleport_point='enterspawn_spawnhouse')
@@ -161,6 +162,9 @@ class MapManager:
             for hostile_npc in hostile_npcs:
                 hostile_npc.load_points(map_data.tmx_data)
                 hostile_npc.teleport_spawn()
+
+    def add_npc_hostile(self, npc_hostile):
+        self.npc_hostiles.append(npc_hostile)
     
     
     def draw(self):

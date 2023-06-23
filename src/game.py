@@ -18,6 +18,7 @@ class Game:
         self.player = Player()        
         self.is_launching_projectile = False
         self.map_manager = MapManager(self.screen, self.player)
+        self.map_manager.add_npc_hostile(self.npc_hostile)
         self.dialog_box = DialogBox()
         self.game_over = False
         self.inventory_visible = False
@@ -51,6 +52,9 @@ class Game:
     def update(self):
         self.map_manager.update()
         self.player.projectiles.update()
+        for projectile in self.player.projectiles:
+            for npc_hostile in self.map_manager.npc_hostiles:
+                projectile.check_collision_with_npc(npc_hostile)
 
     def game_over_screen(self):
         self.screen.fill((20, 20, 20)) 
