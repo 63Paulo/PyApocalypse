@@ -154,11 +154,14 @@ class MapManager:
     def check_loot_collision(self):
          for lootable in self.get_map().lootables:
             if lootable.rect.colliderect(self.player.rect):
-                if self.player.inventory.add_item(lootable.items):
-                    self.get_map().lootables.remove(lootable)
-                    print("Vous avez trouvé de nouveaux objets !")
+                if not lootable.taken:
+                    if self.player.inventory.add_item(lootable.items):
+                        lootable.taken = True
+                        print("Vous avez trouvé de nouveaux objets !")
                 else:
                     print("L'inventaire est plein.")
+            else:
+                print("Cet objet a déjà été pris.")
 
     def get_map(self):
         return self.maps[self.current_map]
