@@ -67,15 +67,6 @@ class Entity(AnimateSprite):
         projectile = Projectile('sprite/player/Bullet.png', self.rect.center, [1,0], 5)
         self.projectiles.add(projectile)
     
-    def interact(self):
-        for obj in tmx_data*;:
-            if self.rect.colliderect(obstacle.rect):
-                if obstacle.item:  # Vérifiez si l'obstacle a un objet
-                    if self.inventory.add_item(obstacle.item):
-                        obstacle.item = None  # Supprimez l'objet de l'obstacle une fois qu'il est ajouté à l'inventaire
-                        print("Vous avez trouvé un nouvel objet !")
-                    else:
-                        print("L'inventaire est plein.")
     
 class Player(Entity):
     def __init__(self):
