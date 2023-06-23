@@ -144,6 +144,7 @@ class MapManager:
         
         for obstacle in obstacles:
             group.add(obstacle)
+        
 
         #créer objet map
         self.maps[name] = Map(name, walls, group, tmx_data, portals, npcs, hostile_npcs)
